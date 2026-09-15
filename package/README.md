@@ -1,5 +1,7 @@
 # Server Mod Bootstrap
 
+This is a credited fork of [monokaijs/Valheim-Server-Mods](https://github.com/monokaijs/Valheim-Server-Mods), originally authored by **monokaijs**. The fork preserves the original functionality and adds tolerant handling for UTF-8 BOM markers in Thunderstore package manifests.
+
 Install this package once on every Valheim client and dedicated server. Clients require no configuration.
 
 Each dedicated server sets its complete HTTPS `ManifestUrl` in `BepInEx/config/ServerModBootstrap/bootstrap.cfg`. At startup and every 60 seconds, the server downloads and validates that JSON manifest. When a client connects, the server relays its active manifest through an early peer RPC. Schema v2 configs can target `server`, `client`, or `both`; server-only contents are removed before relay and use a separate revision from the client view.

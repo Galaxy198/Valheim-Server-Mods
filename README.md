@@ -1,5 +1,7 @@
 # Universal Valheim Server Mod Bootstrap
 
+This repository is a credited fork maintained by **Galaxy198** from [monokaijs/Valheim-Server-Mods](https://github.com/monokaijs/Valheim-Server-Mods), originally authored by **monokaijs**. The fork preserves the upstream design and adds UTF-8 BOM-tolerant parsing for Thunderstore package manifests.
+
 This repository builds a single BepInEx/Thunderstore package installed on both Valheim clients and dedicated servers. A server is configured with an arbitrary JSON manifest URL; clients receive that server's active manifest during connection and never configure a server ID or URL.
 
 ## Manifest service

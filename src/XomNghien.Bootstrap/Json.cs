@@ -7,7 +7,16 @@ internal static class Json
 {
     public static T Read<T>(byte[] bytes)
     {
-        using var stream = new MemoryStream(bytes, writable: false);
+        // Thunderstore package manifests are commonly UTF-8 with a BOM.
+        // DataContractJsonSerializer does not accept that marker when the
+        // input is supplied as a byte stream, so skip it at the JSON boundary.
+        var offset = bytes.Length >= 3
+            && bytes[0] == 0xEF
+            && bytes[1] == 0xBB
+            && bytes[2] == 0xBF
+            ? 3
+            : 0;
+        using var stream = new MemoryStream(bytes, offset, bytes.Length - offset, writable: false);
         return (T)new DataContractJsonSerializer(typeof(T)).ReadObject(stream)!;
     }
 

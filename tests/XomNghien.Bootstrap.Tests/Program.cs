@@ -15,6 +15,7 @@ var tests = new (string Name, Action Run)[]
     ("Valheim string RPC reflection bridge", VerifyRpcReflectionBridge),
     ("generic manifest URL settings", VerifyGenericManifestSettings),
     ("server-only configs are removed from relayed manifests", FilterServerConfigsFromRelay),
+    ("UTF-8 BOM JSON is accepted", AcceptUtf8BomJson),
 };
 var failed = 0;
 foreach (var test in tests)
@@ -137,6 +138,18 @@ static void FilterServerConfigsFromRelay()
     Assert(relayed.Revision == clientRevision, "relay did not use the client revision");
     Assert(relayed.Configs.Count == 2, "relay did not filter the expected number of configs");
     Assert(relayed.Configs.All(config => config.Path != "server.cfg"), "server-only config was relayed");
+}
+
+static void AcceptUtf8BomJson()
+{
+    var json = System.Text.Encoding.UTF8.GetBytes("{\"name\":\"GoodMod\",\"version_number\":\"1.2.3\"}");
+    var withBom = new byte[json.Length + 3];
+    withBom[0] = 0xEF;
+    withBom[1] = 0xBB;
+    withBom[2] = 0xBF;
+    Buffer.BlockCopy(json, 0, withBom, 3, json.Length);
+    var manifest = Json.Read<PackageManifest>(withBom);
+    Assert(manifest.Name == "GoodMod" && manifest.VersionNumber == "1.2.3", "UTF-8 BOM was not ignored");
 }
 
 static string ConfigJson(string path, string target) =>

@@ -1,3 +1,9 @@
+# 2.1.1
+
+- Credited fork maintained by Galaxy198.
+- Accepts UTF-8 BOM markers in Thunderstore package `manifest.json` files.
+- Added a regression test for BOM-prefixed JSON.
+
 # 2.1.0
 
 - Added schema v2 config targets for server-only, client-only, and shared configuration files.

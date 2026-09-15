@@ -1,8 +1,8 @@
 {
   "name": "ServerModBootstrap",
-  "version_number": "2.1.0",
-  "website_url": "https://github.com/monokaijs/xn-server-mods",
-  "description": "Receives mod manifests from Valheim servers, stages exact Thunderstore packages, and asks clients to restart when needed.",
+  "version_number": "2.1.1",
+  "website_url": "https://github.com/Galaxy198/Valheim-Server-Mods",
+  "description": "Credited fork of ServerModBootstrap with UTF-8 BOM-tolerant Thunderstore package manifest parsing.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2333"
   ]
